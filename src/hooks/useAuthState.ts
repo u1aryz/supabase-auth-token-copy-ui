@@ -1,9 +1,16 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/supabase.ts";
 import { Session } from "@supabase/supabase-js";
 
-export const useAuthState = () => {
+type AuthStateHook = [
+	Session | null | undefined,
+	() => void,
+	Error | undefined,
+];
+
+export const useAuthState = (): AuthStateHook => {
 	const [session, setSession] = useState<Session | null>();
+	const [error, setError] = useState();
 
 	useEffect(() => {
 		const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -16,5 +23,9 @@ export const useAuthState = () => {
 		};
 	}, []);
 
-	return session;
+	const refresh = useCallback(() => {
+		supabase.auth.refreshSession().catch(setError);
+	}, []);
+
+	return [session, refresh, error];
 };

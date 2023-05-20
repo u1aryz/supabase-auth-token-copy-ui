@@ -8,12 +8,12 @@ import {
 	CopyButton,
 } from "@mantine/core";
 import { login, logout } from "@/supabase.ts";
-import { FaGoogle, FaCheck, FaCopy } from "react-icons/fa";
+import { FaGoogle, FaCheck, FaCopy, FaRedo } from "react-icons/fa";
 import Popconfirm from "@/components/Popconfirm.tsx";
 import GitHubCorner from "@/components/GitHubCorner.tsx";
 
 function App() {
-	const session = useAuthState();
+	const [session, refresh] = useAuthState();
 
 	return (
 		<Container py={30} size="sm">
@@ -46,6 +46,9 @@ function App() {
 									</Button>
 								)}
 							</CopyButton>
+							<Button variant="outline" onClick={refresh} leftIcon={<FaRedo />}>
+								Refresh Now
+							</Button>
 							<Popconfirm
 								title="Are you sure you want to log out?"
 								onOk={logout}
