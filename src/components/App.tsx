@@ -61,7 +61,7 @@ function App() {
 					</>
 				)}
 			</Flex>
-			<GitHubCorner />
+			<GitHubCorner url="https://github.com/u1aryz/supabase-auth-token-copy-ui" />
 		</Container>
 	);
 }

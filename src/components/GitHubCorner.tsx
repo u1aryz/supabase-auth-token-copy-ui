@@ -26,12 +26,16 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-const GitHubCorner = () => {
+type Props = {
+	url: string;
+};
+
+const GitHubCorner = ({ url }: Props) => {
 	const { classes } = useStyles();
 
 	return (
 		<a
-			href="https://github.com/u1aryz/firebase-auth-token-copy-ui"
+			href={url}
 			className={classes.root}
 			aria-label="View source on GitHub"
 			target="_blank"
