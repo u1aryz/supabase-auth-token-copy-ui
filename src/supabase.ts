@@ -6,7 +6,14 @@ const anon = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const supabase = createClient(url, anon);
 
 export function login() {
-	return supabase.auth.signInWithOAuth({ provider: "google" });
+	return supabase.auth.signInWithOAuth({
+		provider: "google",
+		options: {
+			queryParams: {
+				prompt: "select_account",
+			},
+		},
+	});
 }
 
 export function logout() {
